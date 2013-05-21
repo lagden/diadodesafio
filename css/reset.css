@@ -1,0 +1,14 @@
+* {margin:0; padding:0; border:0; outline:none;}
+hr {display:none;}
+h1, h2, h3, h4, h5, h6 {font-size:100%;}
+html {overflow-y:scroll; font-size:100.01%;}
+html, body {height:100%;}
+body {height:100%; background:#FFF; font:normal 11px tahoma; background:url("../images/bg.jpg") repeat-x scroll 0 0 #FFFFFF;}
+body a {text-decoration:none;}
+body a:hover {text-decoration:underline;}
+body ul {float:left;}
+body ul li {float:left; list-style:none;}
+body fieldset {float:left;}
+body fieldset legend {display:none;}
+body input, body select, body textarea  {font:12px tahoma;}
+body p { font-family:Arial !important;}

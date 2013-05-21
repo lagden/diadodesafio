@@ -1,0 +1,457 @@
+// Vars
+$black: #000000;
+$blue: #0d9adb;
+$gray: #999;
+$red: #f15f64;
+
+// Functions
+@function strip-units($number) {
+    @return $number / ($number * 0 + 1);
+}
+
+@function relative-size($size, $base:16, $unit:rem) {
+    @return #{strip-units($size)/strip-units($base)}$unit;
+}
+
+// Mixins
+@mixin attr-size($attr, $size, $base:16, $unit:rem) {
+    #{$attr}: #{strip-units($size)}px;
+    #{$attr}: relative-size($size, $base, $unit);
+}
+
+@mixin clear-floats(){
+    &:before,
+    &:after {
+        content: "\0020";
+        display: block;
+        height: 0;
+        overflow: hidden;
+    }
+
+    &:after {
+        clear: both;
+    }
+
+    & {
+        zoom: 1;
+    }
+}
+
+@mixin inline-block(){
+    display:inline-block;
+
+    // IE7 fix
+    *display:inline;
+    *zoom:1;
+}
+
+// Imports
+@import "compass";
+@import "vendor/semantic";
+@import "front/sprites";
+
+// Geral
+.cf{
+    @include clear-floats();
+}
+
+.ir {
+    border: 0;
+    font: 0/0 Arial;
+    text-shadow: none;
+    color: transparent;
+    background-color: transparent;
+}
+
+.blue{
+    color: $blue !important;
+}
+
+.gray{
+    color: $gray !important;
+}
+
+.red{
+    color: $red !important;
+}
+
+.mbg{
+    @include attr-size('margin-bottom', $gutter-width);
+}
+
+.fl{
+    float: left;
+}
+
+.fr{
+    float: right;
+}
+
+.link--blue{
+    @include link-colors($blue, $blue, $blue, $blue, $blue);
+    &.upper{
+        text-transform: uppercase;
+    }
+}
+
+.link--gray{
+    @include link-colors($gray, $gray, $gray, $gray, $gray);
+    &.upper{
+        text-transform: uppercase;
+    }
+}
+
+.bl{
+    display: block;
+}
+
+.bl-center{
+    @extend .bl;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+// Content
+.contentTheBox{
+    position: relative;
+    width: $total-width;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+// The Boxes
+.theBox{
+    position: relative;
+    background-color: white;
+    @include box-sizing(border-box);
+    @include attr-size('padding', $gutter-width);
+    @include attr-size('margin-bottom', $gutter-width);
+    @include border-radius(10px);
+    @include box-shadow(#999 1px 3px 7px);
+    behavior: url('css/PIE.htc');
+    h2{
+        @include attr-size('font-size', 27);
+        color: $blue;
+        text-transform: uppercase;
+        font-family: 'Helvetica Rounded LT Std' !important;;
+    }
+    h3{
+        @include attr-size('font-size', 16);
+        color: $gray;
+        text-transform: uppercase;
+        font-family: 'Helvetica Rounded LT Std' !important;;
+    }
+    p{
+        @include attr-size('font-size', 13);
+        color: $gray;
+    }
+    h2,
+    h3,
+    h4,
+    p{
+        @include attr-size('margin-bottom', $gutter-width);
+    }
+}
+
+.theBox--gradient{
+    background-color: #eeeeee;
+    $experimental-support-for-svg: true;
+    @include background-image(linear-gradient(top,  #eeeeee 30%,#feffff 100%));
+    -pie-background: linear-gradient(#ebebeb, #ffffff);
+}
+
+.theBox--gradient-form{
+    background-color: #eeeeee;
+    $experimental-support-for-svg: true;
+    @include background-image(linear-gradient(top,  #eeeeee 30%,#d6d6d6 100%));
+    -pie-background: linear-gradient(#ebebeb, #d6d6d6);
+}
+
+.theBox--min{
+    @include attr-size('min-height', 310);
+}
+
+.theRow3{
+    @include row(3);
+}
+
+.theRow9{
+    @include row(9);
+}
+
+.theBox--3{
+    @include column(3,3);
+}
+
+.theBox--4{
+    @include column(4,9);
+}
+.theBox--5{
+    @include column(5,9);
+}
+
+.theBox--title,
+.theBox--material{
+    @include column(12);
+}
+
+.theBox--material{
+    .tabs{
+        margin-bottom: $gutter-width;
+        li{
+            margin-right: $gutter-width * 2;
+        }
+    }
+    .nav-itens{
+        @include row(12);
+        li{
+            @include column(4,12);
+            margin-bottom: $gutter-width;
+            h2{
+                @include attr-size('font-size', 16);
+                margin: 0;
+                padding: 0;
+            }
+            p{
+                @include attr-size('font-size', 14);
+                margin: 0;
+                padding: 0;
+            }
+        }
+    }
+}
+
+.theBox--title{
+    .nav--keywords{
+        @include attr-size('font-size', 14);
+        a{
+            @extend .link--gray;
+            text-transform: uppercase;
+        }
+    }
+}
+
+// Sorteio
+.sorteio--box{
+    text-align: center;
+    .x,
+    .player{
+        @include attr-size('font-size', 12);
+        color: $blue;
+        text-transform: uppercase;
+        font-family: 'Helvetica Rounded LT Std' !important;
+        span{
+            color: $gray;
+        }
+    }
+    .player1{
+        @include attr-size('font-size', 15);
+    }
+
+    .x{
+        @include attr-size('font-size', 30);
+        color: $red;
+        text-transform: uppercase;
+    }
+}
+
+// Galeria
+.galeria--box{
+    min-height: 320px;
+}
+
+.img-galeria{
+    @include attr-size('width', 268);
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+// Lista
+.lista--box{
+    h4,
+    small{
+        color: $blue;
+        text-transform: uppercase;
+    }
+    h4{
+        @include attr-size('font-size', 14);
+    }
+    small{
+        @include attr-size('font-size', 11);
+    }
+    a{
+        @extend .link--blue;
+    }
+}
+
+.noticias--box,
+.mural--box{
+    min-height: 560px;
+}
+
+// Mural
+.lista--mural{
+    height: 420px;
+    overflow-y: auto;
+}
+
+// Comente & comentario
+.lista--comentario{
+    height: 320px;
+    overflow-y: auto;
+    margin-bottom: $gutter-width;
+}
+
+.comentario--box,
+.comente--box{
+    min-height: 500px;
+}
+
+.comente--box{
+    .frm{
+        position: relative;
+        label{
+            @include attr-size('font-size', 14);
+            display: block;
+            color: $black;
+            font-weight: bold;
+        }
+        textarea,
+        input[type=text]{
+            position: relative;
+            color: $black;
+            display: block;
+            width: 100%;
+            border: thin solid #EEE;
+            @include box-sizing(border-box);
+            @include border-radius(10px);
+            @include box-shadow(($gray + 50) 0px 1px 4px inset);
+            @include attr-size('padding', 5);
+            @include attr-size('margin-bottom', 20);
+            behavior: url('css/PIE.htc');
+        }
+        textarea{
+            min-height: 100px;
+        }
+        button{
+            float: right;
+            position: relative;
+            background-color: red;
+            color: white;
+            padding: 3px 10px;
+            @include border-radius(5px);
+            @include attr-size('font-size', 14);
+            behavior: url('css/PIE.htc');
+            &:active{
+                top: 1px;
+            };
+        }
+    }
+}
+
+// Mains
+.mainBox{
+    @include column(9);
+}
+
+.asideBox{
+    @include column(3);
+}
+
+// Participantes
+.participante--box{
+    .nav{
+        font-size: 0;
+        float: none;
+        li{
+            // float: none;
+            @include attr-size('width', 50);
+            @include attr-size('margin-left', 4);
+            @include attr-size('margin-right', 4);
+            @include attr-size('padding-bottom', $gutter-width);
+            @include attr-size('font-size', 11);
+            a{
+                @extend .link--blue;
+            }
+            img,
+            a{
+                display: block;
+                margin: 0 auto;
+                text-align: center;
+            }
+        }
+    }
+    h4{
+        @include attr-size('font-size', 20);
+        color: $blue;
+        text-transform: uppercase;
+    }
+}
+
+.dados--box{
+    text-align: center;
+    h3{
+        @include attr-size('font-size', 9);
+        color: #979797;
+    }
+}
+
+
+// Helpers
+.media{
+    display: block;
+    @extend .cf;
+}
+
+    .media__img{
+        float: left;
+        @include attr-size('margin-right', $gutter-width);
+    }
+
+    .media__img--rev{
+        float: right;
+        @include attr-size('margin-left', $gutter-width);
+    }
+
+        .media__img img,
+        .media__img--rev img{
+            display: block;
+        }
+
+    .media__body{
+        overflow: hidden;
+    }
+
+        .media__body,
+        .media__body > :last-child{
+            margin-bottom: 0;
+        }
+
+.nav{
+    float: none !important;
+    list-style: none;
+    margin-left: 0;
+    @extend .cf;
+
+    > li{
+
+        &,
+        > a{
+            @include inline-block;
+        }
+    }
+}
+
+.nav--keywords{
+    > li{
+
+        &:after{
+            content:"\00A0" "\003E" "\00A0";
+        }
+
+        &:last-child:after{
+            display:none;
+        }
+    }
+}
